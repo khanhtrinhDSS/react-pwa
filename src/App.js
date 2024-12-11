@@ -1,44 +1,29 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import PWAPrompt from 'react-ios-pwa-prompt'
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { getToken } from 'firebase/messaging';
+import { messaging } from './firebase';
 
 function App() {
 
-  const [installPrompt, setInstallPrompt] = useState(null);
-  const [showInstall, setShowInstall] = useState(false);
+  const [text, setText] = useState();
 
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    setInstallPrompt(event);
-  });
 
-  const handleInstall = async () => {
-    if (!installPrompt) {
-      return;
+  const handleRequest = async () => {
+    const permission = await Notification.requestPermission();
+    console.log('mesaging: ', messaging);
+    if (permission === "granted") {
+      const token = await getToken(messaging, {
+        vapidKey: "BH6KL1kaSE6gVfIjv5LFK-rQsUdLuDwp7cF3bgKefw6oKFe0aF19igZxvl4b_N2F8afpqTghrgHYlQ_MgxJ-D7c"
+      })
+      setText(token);
     }
-    const result = await installPrompt.prompt();
-    console.log(`Install prompt was: ${result.outcome}`);
-    installPrompt = null;
   }
 
-  
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to rqwkmdkas
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn heheh
-        </a>
-        <button id="install" onClick={handleInstall} >Install</button>
+        <button onClick={handleRequest} >Request</button>
+        <p>{text}</p>
       </header>
     </div>
   );
