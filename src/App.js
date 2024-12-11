@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <button onClick={handleRequest} >Request</button>
-        <p>{text}</p>
+        <p style={{padding: "12px"}}>{text}</p>
       </header>
     </div>
   );
