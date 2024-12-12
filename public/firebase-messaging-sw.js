@@ -28,3 +28,15 @@ messaging.onBackgroundMessage(payload => {
 
   self.registration.showNotification(title, notification);
 })
+
+
+self.addEventListener("notificationclick", (event) => {
+  console.log("Notification clicked:", event.notification);
+  event.notification.close(); // Đóng thông báo
+
+  // Mở hoặc chuyển đến một trang
+  event.waitUntil(
+    clients.openWindow(`/?check=${event.notification.title}`)
+  );
+});
+
