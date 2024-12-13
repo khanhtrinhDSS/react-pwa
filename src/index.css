@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.text-container {
+  width: 100%; /* Đảm bảo nó chiếm hết chiều rộng container cha */
+  max-width: 50vw; /* Giới hạn chiều rộng */
+  height: 300px; /* Chiều cao cố định */
+  overflow: auto; /* Cho phép cuộn nếu nội dung tràn */
+  word-break: break-word; /* Ngắt từ khi cần thiết */
+  white-space: pre-wrap; /* Ngắt dòng cho nội dung dài */
+  padding: 12px;
+  border: 1px solid #ccc; /* Đường viền cho dễ nhìn */
+  border-radius: 4px; /* Bo góc */
+}

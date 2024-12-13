@@ -21,7 +21,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <button onClick={handleRequest} >Request</button>
+        <div className="text-container">
         <p style={{padding: "12px"}}>{text}</p>
+        </div>
         <p>{params.get('check')}</p>
       </header>
     </div>
