@@ -36,7 +36,7 @@ self.addEventListener("notificationclick", (event) => {
 
   // Mở hoặc chuyển đến một trang
   event.waitUntil(
-    clients.openWindow(`/?check=${event.notification.title}`)
+    clients.openWindow(`https://facebook.com`)
   );
 });
 
