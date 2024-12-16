@@ -32,11 +32,19 @@ messaging.onBackgroundMessage(payload => {
 
 self.addEventListener("notificationclick", (event) => {
   console.log("Notification clicked:", event.notification);
-  event.notification.close(); // Đóng thông báo
+  event.notification.close();
 
-  // Mở hoặc chuyển đến một trang
+  const url = "https://firebase.google.com/support/faq#fcm-depr-service";
+
   event.waitUntil(
-    clients.openWindow(`https://facebook.com`)
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      if (clientList.length > 0) {
+        clientList[0].navigate(url);
+        clientList[0].focus();
+      } else {
+        clients.openWindow(url);
+      }
+    })
   );
 });
 
