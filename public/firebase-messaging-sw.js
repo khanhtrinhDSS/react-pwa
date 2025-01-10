@@ -34,6 +34,8 @@ self.addEventListener("notificationclick", (event) => {
   console.log("Notification clicked:", event.notification);
   event.notification.close();
 
+  alert('click on notifcation in the app');
+
   const url = "https://firebase.google.com/support/faq#fcm-depr-service";
 
   event.waitUntil(
