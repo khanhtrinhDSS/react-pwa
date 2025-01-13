@@ -6,14 +6,14 @@ import { getMessaging } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAOZ9P6Vkp43aZv-FPP7BRZ2XQ2qhmZt1I",
-  authDomain: "react-pwa-54922.firebaseapp.com",
-  projectId: "react-pwa-54922",
-  storageBucket: "react-pwa-54922.firebasestorage.app",
-  messagingSenderId: "943712142983",
-  appId: "1:943712142983:web:ddcf30e0922854eb579a22",
-  measurementId: "G-JVNMR0B0VE"
+const firebaseConfig ={
+  apiKey: "AIzaSyB5wkfGlpl-wB3CcgMZoZp32u-6bhmhLEA",
+  authDomain: "pwa-183c4.firebaseapp.com",
+  projectId: "pwa-183c4",
+  storageBucket: "pwa-183c4.firebasestorage.app",
+  messagingSenderId: "540690673321",
+  appId: "1:540690673321:web:949d78455c41b7feccc3b8",
+  measurementId: "G-T0RG7MWDKB"
 };
 
 // Initialize Firebase
