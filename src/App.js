@@ -17,29 +17,25 @@ function App() {
       setText(token);
   }
 
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register(`/firebase-messaging-sw.js`);
-      });
-    }
-  }, []);
   console.log(messaging)
   useEffect(() => {
     const setupListener = async () => {
-      console.log(messaging)
+      console.log('haln-12-messaging',messaging)
       if (!messaging) return;
 
       const unsubscribe = onMessage(messaging, (payload) => {
+        console.log('haln-12-payload',Notification.permission, payload)
         if (Notification.permission !== "granted") return;
-        const title = payload?.data?.title ?? "";
+        const title = payload?.data?.title ?? "onMessageTitle";
         const notification = {
           body: 'onMessage',
           data: { link: 'https://fb.com' },
         };
+        console.log('haln-12-notification', notification)
         navigator.serviceWorker.ready.then(function (registration) {
-          console.log('Notification serviceworker-registration', registration)
-          registration?.showNotification(title, notification);
+        console.log('haln-12-registration', registration)
+        setTimeout(() => {
+          registration?.showNotification(title, notification)}, 100)
         });
       });
       return unsubscribe;
