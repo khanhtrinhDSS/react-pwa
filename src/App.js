@@ -6,18 +6,34 @@ import { messaging } from './firebase';
 function App() {
 
   const [text, setText] = useState();
+  const [permission, setPermission] = useState(Notification.permission);
   const params = new URLSearchParams(window.location.search);
 
   const handleRequest = async () => {
-    const permission = await Notification.requestPermission();
-    console.log('Notification permission: ', permission);
+    const currentPermission = await Notification.requestPermission();
+    setPermission(Notification.permission);
+    console.log('Notification permission: ', currentPermission);
       const token = await getToken(messaging, {
         vapidKey: "BKze_yuNslV43g44e585Cg2Xr58iuPA-3Su3VVYPKYKtA0eDFSWFgSER7VAqpCHG48-l0yeY3EjjLZ978KuZM5E"
       })
       setText(token);
   }
 
-  console.log(messaging)
+  useEffect(() => {
+    const checkPermissionChange = async () => {
+      console.log('haln-check-permission-change', Notification.permission)
+      setTimeout(() => handleRequest(), 3000)
+    };
+    window.addEventListener("focus", checkPermissionChange);
+    window.addEventListener("pageshow", checkPermissionChange);
+    document.addEventListener("visibilitychange", checkPermissionChange);
+    return () => {
+      window.removeEventListener("focus", checkPermissionChange);
+      window.removeEventListener("pageshow", checkPermissionChange);
+      document.removeEventListener("visibilitychange", checkPermissionChange);
+    };
+  },[]);
+
   useEffect(() => {
     const setupListener = async () => {
       console.log('haln-12-messaging',messaging)
@@ -52,6 +68,7 @@ function App() {
         <div className="text-container">
         <p style={{padding: "12px"}}>{text}</p>
         </div>
+        <p style={{padding: "12px"}}>{permission}</p>
         <p>{params.get('check')}</p>
       </header>
     </div>

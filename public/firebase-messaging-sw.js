@@ -5,12 +5,15 @@ self.addEventListener("notificationclick", (event) => {
   console.log("haln-Notification clicked:", event.notification);
   event.notification.close();
   const url = "https://firebase.google.com/support/faq#fcm-depr-service";
-  event.waitUntil(clients.openWindow(url))
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
+      clients.openWindow(url);
+    })
+  );
 });
 
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js')
 importScripts('https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging-compat.js')
-
 
 firebase.initializeApp({
   apiKey: "AIzaSyB5wkfGlpl-wB3CcgMZoZp32u-6bhmhLEA",
@@ -29,6 +32,7 @@ messaging.onBackgroundMessage(payload => {
   const title = payload.data.title || 'onBackgroundMessageTitle'
   const notification = {
     body: "onBackgroundMessage",
+    data: { link: 'https://fb.com' },
   }
 
   self.registration.showNotification(title, notification);
